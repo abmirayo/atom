@@ -2585,18 +2585,22 @@ describe "Editor", ->
         expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [0, 2]]
 
   describe "soft-tabs detection", ->
-    it "assigns soft / hard tabs based on the contents of the buffer, or uses the default if unknown", ->
-      waitsForPromise ->
-        atom.workspace.open('sample.js', softTabs: false).then (editor) ->
-          expect(editor.getSoftTabs()).toBeTruthy()
+    fit "assigns soft / hard tabs based on the contents of the buffer, or uses the default if unknown", ->
+      # waitsForPromise ->
+      #   atom.workspace.open('sample.js', softTabs: false).then (editor) ->
+      #     expect(editor.getSoftTabs()).toBeTruthy()
+      #
+      # waitsForPromise ->
+      #   atom.workspace.open('sample-with-tabs.coffee', softTabs: true).then (editor) ->
+      #     expect(editor.getSoftTabs()).toBeFalsy()
 
       waitsForPromise ->
-        atom.workspace.open('sample-with-tabs.coffee', softTabs: true).then (editor) ->
+        atom.workspace.open('sample-with-tabs-and-initial-comment.js', softTabs: true).then (editor) ->
           expect(editor.getSoftTabs()).toBeFalsy()
 
-      waitsForPromise ->
-        atom.workspace.open(null, softTabs: false).then (editor) ->
-          expect(editor.getSoftTabs()).toBeFalsy()
+      # waitsForPromise ->
+      #   atom.workspace.open(null, softTabs: false).then (editor) ->
+      #     expect(editor.getSoftTabs()).toBeFalsy()
 
   describe ".indentLevelForLine(line)", ->
     it "returns the indent level when the line has only leading whitespace", ->
